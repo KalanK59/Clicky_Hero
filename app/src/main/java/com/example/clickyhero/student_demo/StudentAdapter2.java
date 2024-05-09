@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,22 +35,19 @@ public class StudentAdapter2 extends RecyclerView.Adapter<StudentAdapter2.Studen
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
         Student2 student = alStudents.get(position);
-        holder.tvStudentName.setText(student.getFirstName());
+        holder.tvStudentName.setText(student.getName());
+        holder.imgArrow1.setImageResource(student.getCombos()[0]);
+        holder.imgArrow2.setImageResource(student.getCombos()[1]);
+        holder.imgArrow3.setImageResource(student.getCombos()[2]);
+        holder.imgArrow4.setImageResource(student.getCombos()[3]);
+        holder.imgArrow5.setImageResource(student.getCombos()[4]);
+        holder.imgArrow6.setImageResource(student.getCombos()[5]);
+        holder.imgArrow7.setImageResource(student.getCombos()[6]);
+        holder.imgArrow8.setImageResource(student.getCombos()[7]);
+
 
         // Set background color to turquoise
         holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
-
-        // Generate arrows based on button press combination
-        ButtonPress buttonPress = ButtonPresses.COMBINATIONS[position % ButtonPresses.COMBINATIONS.length];
-        int[] presses = buttonPress.getPresses();
-        StringBuilder arrows = new StringBuilder();
-        for (int press : presses) {
-            Drawable arrowDrawable = getArrowDrawableForPress(press);
-            if (arrowDrawable != null) {
-                arrows.append(getArrowTextForPress(press));
-            }
-        }
-        holder.tvArrows.setText(arrows.toString());
     }
 
     @Override
@@ -57,46 +55,33 @@ public class StudentAdapter2 extends RecyclerView.Adapter<StudentAdapter2.Studen
         return alStudents.size();
     }
 
-    private Drawable getArrowDrawableForPress(int press) {
-        switch (press) {
-            case 1:
-                return ContextCompat.getDrawable(context, R.drawable.up);
-            case 2:
-                return ContextCompat.getDrawable(context, R.drawable.down);
-            case 3:
-                return ContextCompat.getDrawable(context, R.drawable.left);
-            case 4:
-                return ContextCompat.getDrawable(context, R.drawable.right);
-            default:
-                return null;
-        }
-    }
-
-    private String getArrowTextForPress(int press) {
-        switch (press) {
-            case 1:
-                return "↑";
-            case 2:
-                return "↓";
-            case 3:
-                return "←";
-            case 4:
-                return "→";
-            default:
-                return "";
-        }
-    }
-
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
         TextView tvStudentName;
-        TextView tvGender;
-        TextView tvArrows;
+
+        ImageView imgArrow1;
+        ImageView imgArrow2;
+        ImageView imgArrow3;
+        ImageView imgArrow4;
+        ImageView imgArrow5;
+        ImageView imgArrow6;
+        ImageView imgArrow7;
+        ImageView imgArrow8;
+
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
             tvStudentName = itemView.findViewById(R.id.tvStudentName);
-            tvGender = itemView.findViewById(R.id.tvGender);
-            tvArrows = itemView.findViewById(R.id.tvArrows);
+            imgArrow1 = itemView.findViewById(R.id.imgArrow);
+            imgArrow2 = itemView.findViewById(R.id.imgArrow1);
+            imgArrow3 = itemView.findViewById(R.id.imgArrow2);
+            imgArrow4 = itemView.findViewById(R.id.imgArrow3);
+            imgArrow5 = itemView.findViewById(R.id.imgArrow4);
+            imgArrow6 = itemView.findViewById(R.id.imgArrow5);
+            imgArrow7 = itemView.findViewById(R.id.imgArrow6);
+            imgArrow8 = itemView.findViewById(R.id.imgArrow7);
+
+
+
         }
     }
 }

@@ -35,20 +35,16 @@ public class StudentActivity2 extends AppCompatActivity {
         rvStudent.setLayoutManager(layoutManager);
 
         alStudents = new ArrayList<>();
-        alStudents.add(new Student2( "Reinforce"));
-        alStudents.add(new Student2( "Resupply"));
-        alStudents.add(new Student2("Eagle Rearm"));
-        alStudents.add(new Student2("Eagle Airstrike"));
-        alStudents.add(new Student2("Eagle 500kg Bomb"));
+        alStudents.add(new Student2( "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2( "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2("Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2("Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2("Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
 
         studentAdapter = new StudentAdapter2(alStudents, StudentActivity2.this);
         rvStudent.setAdapter(studentAdapter);
 
-        // Add divider
-        setRecyclerViewDivider();
     }
 
-    private void setRecyclerViewDivider() {
 
-    }
 }
