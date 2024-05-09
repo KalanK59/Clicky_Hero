@@ -15,7 +15,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/clicky_clicky_hero" />
+            android:text="Clicky Clicky Hero"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tvCity"
@@ -24,7 +25,8 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:gravity="end"
-            android:text="@string/restart"/>
+            android:text="restart"
+            android:textAllCaps="true"/>
     </LinearLayout>
 
     <TextView
@@ -33,11 +35,20 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:gravity="center"
-        android:text="@string/select_a_combo"/>
+        android:text="Select a Combo:"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCombo"
+        android:id="@+id/rvStudent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Correct Combos: 0" />
 
 </LinearLayout>
