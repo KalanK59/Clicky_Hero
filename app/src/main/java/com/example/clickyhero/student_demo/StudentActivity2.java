@@ -35,11 +35,11 @@ public class StudentActivity2 extends AppCompatActivity {
         rvStudent.setLayoutManager(layoutManager);
 
         alStudents = new ArrayList<Student2>();
-        alStudents.add(new Student2( "Reinforce",  1));
-        alStudents.add(new Student2( "Resupply", 1));
-        alStudents.add(new Student2("Eagle Rearm",  0));
-        alStudents.add(new Student2("Eagle Airstrike",  0));
-        alStudents.add(new Student2("Eagle 500kg Bomb",  0));
+        alStudents.add(new Student2( "Reinforce"));
+        alStudents.add(new Student2( "Resupply"));
+        alStudents.add(new Student2("Eagle Rearm"));
+        alStudents.add(new Student2("Eagle Airstrike"));
+        alStudents.add(new Student2("Eagle 500kg Bomb"));
 
         studentAdapter = new StudentAdapter2(alStudents, StudentActivity2.this);
         rvStudent.setAdapter(studentAdapter);

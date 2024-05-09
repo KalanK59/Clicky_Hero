@@ -35,7 +35,6 @@ public class StudentAdapter2 extends RecyclerView.Adapter<StudentAdapter2.Studen
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
         Student2 student = alStudents.get(position);
         holder.tvStudentName.setText(student.getFirstName());
-        holder.tvGender.setText(student.getGender() == 1 ? "Male" : "Female");
 
         // Generate arrows based on button press combination
         ButtonPress buttonPress = ButtonPresses.COMBINATIONS[position % ButtonPresses.COMBINATIONS.length];

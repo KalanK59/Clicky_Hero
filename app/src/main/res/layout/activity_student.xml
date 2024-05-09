@@ -18,8 +18,8 @@
             android:text="Clicky Clicky Hero"
             android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/tvCity"
+        <Button
+            android:id="@+id/btnRestart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

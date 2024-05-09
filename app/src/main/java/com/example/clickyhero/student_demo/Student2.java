@@ -11,9 +11,9 @@ public class Student2 {
     public Student2() {
     }
 
-    public Student2(String firstName, int gender) {
+    public Student2(String firstName) {
         this.firstName = firstName;
-        this.gender = gender;
+
     }
 
     public String getFirstName() {
@@ -24,12 +24,5 @@ public class Student2 {
         this.firstName = firstName;
     }
 
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
 
 }
