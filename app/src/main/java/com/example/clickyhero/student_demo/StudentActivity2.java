@@ -27,7 +27,7 @@ public class StudentActivity2 extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide(); //This is what hides the action bar.
 
-        setContentView(R.layout.activity_student);
+        setContentView(R.layout.activity_clickyhero_main);
 
         rvStudent = findViewById(R.id.rvStudent);
 
