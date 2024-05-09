@@ -25,6 +25,7 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:gravity="end"
+            android:background="@android:color/transparent"
             android:text="restart"
             android:textAllCaps="true"/>
     </LinearLayout>

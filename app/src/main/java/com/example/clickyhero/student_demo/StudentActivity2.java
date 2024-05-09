@@ -34,7 +34,7 @@ public class StudentActivity2 extends AppCompatActivity {
         LinearLayoutManager layoutManager =  new LinearLayoutManager(StudentActivity2.this);
         rvStudent.setLayoutManager(layoutManager);
 
-        alStudents = new ArrayList<Student2>();
+        alStudents = new ArrayList<>();
         alStudents.add(new Student2( "Reinforce"));
         alStudents.add(new Student2( "Resupply"));
         alStudents.add(new Student2("Eagle Rearm"));
@@ -43,5 +43,12 @@ public class StudentActivity2 extends AppCompatActivity {
 
         studentAdapter = new StudentAdapter2(alStudents, StudentActivity2.this);
         rvStudent.setAdapter(studentAdapter);
+
+        // Add divider
+        setRecyclerViewDivider();
+    }
+
+    private void setRecyclerViewDivider() {
+
     }
 }

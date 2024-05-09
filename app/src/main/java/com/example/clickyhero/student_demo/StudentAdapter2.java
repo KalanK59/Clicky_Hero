@@ -36,6 +36,9 @@ public class StudentAdapter2 extends RecyclerView.Adapter<StudentAdapter2.Studen
         Student2 student = alStudents.get(position);
         holder.tvStudentName.setText(student.getFirstName());
 
+        // Set background color to turquoise
+        holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
+
         // Generate arrows based on button press combination
         ButtonPress buttonPress = ButtonPresses.COMBINATIONS[position % ButtonPresses.COMBINATIONS.length];
         int[] presses = buttonPress.getPresses();

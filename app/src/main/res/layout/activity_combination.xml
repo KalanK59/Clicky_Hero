@@ -8,43 +8,82 @@
     android:orientation="vertical"
     tools:context=".student_demo.CombinationActivity" >
 
+    <TextView
+        android:id="@+id/tvGender"
+        android:layout_width="137dp"
+        android:layout_height="37dp"
+        android:layout_weight="1"
+        android:text="Clicky Clicky Hero"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="4dp" />
+
+    <TextView
+        android:id="@+id/tvUpdate"
+        android:layout_width="137dp"
+        android:layout_height="37dp"
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="11dp"
+        tools:layout_editor_absoluteY="58dp" />
+
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="115dp"
         android:layout_height="104dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="416dp"
+        android:layout_marginEnd="16dp"
         android:adjustViewBounds="false"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/up"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="431dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/up" />
 
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="115dp"
         android:layout_height="104dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:adjustViewBounds="false"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/down"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="542dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:srcCompat="@drawable/down" />
 
     <ImageButton
         android:id="@+id/imageButton3"
         android:layout_width="115dp"
         android:layout_height="104dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:adjustViewBounds="false"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/left"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="542dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:srcCompat="@drawable/left" />
 
     <ImageButton
         android:id="@+id/imageButton4"
         android:layout_width="115dp"
         android:layout_height="104dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         android:adjustViewBounds="false"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/right"
-        tools:layout_editor_absoluteX="280dp"
-        tools:layout_editor_absoluteY="542dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:srcCompat="@drawable/right" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
