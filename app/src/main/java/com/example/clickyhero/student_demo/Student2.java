@@ -3,9 +3,9 @@ package com.example.clickyhero.student_demo;
 public class Student2 {
 
 
-    String Name;
+    private String Name;
 
-    int[] combos = new int[8];
+    private int[] combos;
 
     public Student2(String Name, int[] combos) {
         this.Name = Name;
