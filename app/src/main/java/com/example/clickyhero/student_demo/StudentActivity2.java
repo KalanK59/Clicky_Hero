@@ -3,6 +3,7 @@ package com.example.clickyhero.student_demo;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.clickyhero.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class StudentActivity2 extends AppCompatActivity {
 
     RecyclerView rvStudent;
     ArrayList<Student2> alStudents;
     private StudentAdapter2 studentAdapter;
+    private Button btnRestart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,7 @@ public class StudentActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_clickyhero_main);
 
         rvStudent = findViewById(R.id.rvStudent);
+        btnRestart = findViewById(R.id.btnRestart);
 
         LinearLayoutManager layoutManager =  new LinearLayoutManager(StudentActivity2.this);
         rvStudent.setLayoutManager(layoutManager);
@@ -43,7 +47,15 @@ public class StudentActivity2 extends AppCompatActivity {
         studentAdapter = new StudentAdapter2(alStudents, StudentActivity2.this);
         rvStudent.setAdapter(studentAdapter);
 
+
+        btnRestart.setOnClickListener(v -> restartGame());
     }
 
+    private void restartGame() {
+        // Randomize order of combinations
+        Collections.shuffle(alStudents);
 
+        // Notify the adapter that the data has changed
+        studentAdapter.notifyDataSetChanged();
+    }
 }

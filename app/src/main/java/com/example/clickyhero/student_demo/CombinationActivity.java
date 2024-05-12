@@ -94,6 +94,12 @@ public class CombinationActivity extends AppCompatActivity {
             // Set correct press status (gold star)
             imageView.setImageResource(android.R.drawable.btn_star_big_on);
             pressStatus[index] = true;
+
+            // Check if all buttons have been pressed correctly
+            if (index == pressStatus.length - 1 && pressStatus[index]) {
+                // All buttons pressed correctly, close the activity
+                finish();
+            }
         } else {
             // Set incorrect press status (grey star)
             imageView.setImageResource(android.R.drawable.btn_star_big_off);
