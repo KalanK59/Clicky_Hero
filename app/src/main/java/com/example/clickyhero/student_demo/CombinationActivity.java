@@ -1,6 +1,7 @@
 package com.example.clickyhero.student_demo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -9,9 +10,6 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.clickyhero.R;
 
@@ -24,6 +22,10 @@ public class CombinationActivity extends AppCompatActivity {
     ImageButton btnUp, btnDown, btnLeft, btnRight;
     int[] imageResources;
     boolean[] pressStatus;
+
+    ImageView[] comboIcons;
+    int pressStatusIndex = 0;
+    int countNonTransparentImages = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class CombinationActivity extends AppCompatActivity {
         btnLeft = findViewById(R.id.imageBtnLeft);
         btnRight = findViewById(R.id.imageBtnRight);
 
+        comboIcons = new ImageView[8];
+
         Bundle extras = getIntent().getExtras();
 
         String name = extras.getString("name", "");
@@ -68,35 +72,43 @@ public class CombinationActivity extends AppCompatActivity {
             setImageIfNotTransparent(image8, imageResources[7]);
 
             // Initialize press status for each image button
-            pressStatus = new boolean[4];
+            pressStatus = new boolean[countNonTransparentImages];
             Arrays.fill(pressStatus, false);
 
             // Set onClickListeners for each image button
-            btnUp.setOnClickListener(v -> handlePress(image1, 0));
-            btnDown.setOnClickListener(v -> handlePress(image2, 1));
-            btnLeft.setOnClickListener(v -> handlePress(image3, 2));
-            btnRight.setOnClickListener(v -> handlePress(image4, 3));
+            btnUp.setOnClickListener(v -> handlePress(comboIcons[pressStatusIndex], R.drawable.up));
+            btnDown.setOnClickListener(v -> handlePress(comboIcons[pressStatusIndex], R.drawable.down));
+            btnLeft.setOnClickListener(v -> handlePress(comboIcons[pressStatusIndex], R.drawable.left));
+            btnRight.setOnClickListener(v -> handlePress(comboIcons[pressStatusIndex], R.drawable.right));
         }
     }
 
+
     private void setImageIfNotTransparent(ImageView imageView, int resourceId) {
+
         if (resourceId != R.drawable.transparent) {
             imageView.setImageResource(resourceId);
+            comboIcons[countNonTransparentImages] = imageView;
+            countNonTransparentImages++;
         }
         else {
             imageView.setVisibility(ImageView.INVISIBLE);
         }
     }
 
-    private void handlePress(ImageView imageView, int index) {
+    private void handlePress(ImageView imageView, int sentBtnId) {
+        int correctBtnId = imageResources[pressStatusIndex];
+        Log.d("DEBUG", "correctBtnId: " + correctBtnId);
+        Log.d("DEBUG", "sentBtnId: " + sentBtnId);
+
         // Check if the current button press is correct (in sequence)
-        if (index == 0 || (index > 0 && pressStatus[index - 1])) {
+        if (sentBtnId == correctBtnId) {
             // Set correct press status (gold star)
             imageView.setImageResource(android.R.drawable.btn_star_big_on);
-            pressStatus[index] = true;
+            pressStatus[pressStatusIndex] = true;
 
             // Check if all buttons have been pressed correctly
-            if (index == pressStatus.length - 1 && pressStatus[index]) {
+            if (pressStatusIndex == pressStatus.length - 1) {
                 // All buttons pressed correctly, close the activity
                 finish();
             }
@@ -106,5 +118,6 @@ public class CombinationActivity extends AppCompatActivity {
             // Reset press status for all buttons if a mistake is made
             Arrays.fill(pressStatus, false);
         }
+        pressStatusIndex++;
     }
 }
