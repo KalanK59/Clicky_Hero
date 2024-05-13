@@ -115,8 +115,12 @@ public class CombinationActivity extends AppCompatActivity {
         }
         // Check if all buttons have been pressed correctly
         if (pressStatusIndex == pressStatus.length - 1) {
-            // All buttons pressed correctly, close the activity
+
+            // TODO Not good to finish, go to the previous activity and use shared preferences and
+            // TODO update the wrong and the right colours for the linearlayout with teh number of correct combos
+
             finish();
+
         }
         pressStatusIndex++;
     }
