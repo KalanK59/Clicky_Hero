@@ -1,9 +1,11 @@
 package com.example.clickyhero.student_demo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +23,8 @@ public class StudentActivity2 extends AppCompatActivity {
     private StudentAdapter2 studentAdapter;
     private Button btnRestart;
 
+    private TextView tvScore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,8 @@ public class StudentActivity2 extends AppCompatActivity {
 
         rvStudent = findViewById(R.id.rvStudent);
         btnRestart = findViewById(R.id.btnRestart);
+
+        tvScore = findViewById(R.id.tvScore);
 
         LinearLayoutManager layoutManager =  new LinearLayoutManager(StudentActivity2.this);
         rvStudent.setLayoutManager(layoutManager);
@@ -58,4 +64,6 @@ public class StudentActivity2 extends AppCompatActivity {
         // Notify the adapter that the data has changed
         studentAdapter.notifyDataSetChanged();
     }
+
+
 }
