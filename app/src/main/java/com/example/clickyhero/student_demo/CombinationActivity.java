@@ -16,7 +16,8 @@ import com.example.clickyhero.R;
 import java.util.Arrays;
 
 public class CombinationActivity extends AppCompatActivity {
-
+    public static final int RESULT_CORRECT = 1;
+    public static final int RESULT_INCORRECT = 0;
     TextView tvUpdate;
     ImageView image1, image2, image3, image4, image5, image6, image7, image8;
     ImageButton btnUp, btnDown, btnLeft, btnRight;
@@ -26,6 +27,7 @@ public class CombinationActivity extends AppCompatActivity {
     ImageView[] comboIcons;
     int pressStatusIndex = 0;
     int countNonTransparentImages = 0;
+    int correctCombos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
