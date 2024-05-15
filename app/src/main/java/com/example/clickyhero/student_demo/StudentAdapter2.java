@@ -40,22 +40,22 @@ public class StudentAdapter2 extends RecyclerView.Adapter<StudentAdapter2.Studen
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
         Student2 student = alStudents.get(position);
         holder.Name.setText(student.getName());
-        holder.imgArrow1.setImageResource(student.getCombos()[0]);
-        holder.imgArrow2.setImageResource(student.getCombos()[1]);
-        holder.imgArrow3.setImageResource(student.getCombos()[2]);
-        holder.imgArrow4.setImageResource(student.getCombos()[3]);
-        holder.imgArrow5.setImageResource(student.getCombos()[4]);
-        holder.imgArrow6.setImageResource(student.getCombos()[5]);
-        holder.imgArrow7.setImageResource(student.getCombos()[6]);
-        holder.imgArrow8.setImageResource(student.getCombos()[7]);
+//        holder.imgArrow1.setImageResource(student.getCombos()[0]);
+//        holder.imgArrow2.setImageResource(student.getCombos()[1]);
+//        holder.imgArrow3.setImageResource(student.getCombos()[2]);
+//        holder.imgArrow4.setImageResource(student.getCombos()[3]);
+//        holder.imgArrow5.setImageResource(student.getCombos()[4]);
+//        holder.imgArrow6.setImageResource(student.getCombos()[5]);
+//        holder.imgArrow7.setImageResource(student.getCombos()[6]);
+//        holder.imgArrow8.setImageResource(student.getCombos()[7]);
 
 
         // Set background color to turquoise
         holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
 
         holder.Container.setOnClickListener(v -> {
-            int[] imageResources = student.getCombos();
-            openCombinationsActivity(student.getName(), imageResources);
+//            int[] imageResources = student.getCombos();
+//            openCombinationsActivity(student.getName(), imageResources);
         });
     }
 

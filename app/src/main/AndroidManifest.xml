@@ -22,33 +22,35 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ClickyHero" />
+            android:theme="@style/Theme.ClickyHero"/>
         <activity
             android:name=".student_demo.StudentActivity2"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ClickyHero"/>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/Theme.ClickyHero">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".student_demo.StudentActivity2Backup"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ClickyHero"/>
+            android:theme="@style/Theme.ClickyHero">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
             <activity
                 android:name=".student_demo.StudentAdapter2Backup"
                 android:exported="true"
                 android:label="@string/app_name"
                 android:theme="@style/Theme.ClickyHero">
-        </activity>
+            </activity>
     </application>
 
 </manifest>

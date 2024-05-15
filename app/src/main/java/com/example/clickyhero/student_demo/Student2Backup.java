@@ -6,10 +6,10 @@ public class Student2Backup {
 
     private String comboID;
     private String name;
-    private ArrayList<Integer> combos;
+    private int[] combos;
 
     public Student2Backup(String name, int[] combos) {
-        this.comboID = comboID;
+        this.combos = combos;
         this.name = name;
     }
 
@@ -33,11 +33,11 @@ public class Student2Backup {
         this.name = name;
     }
 
-    public ArrayList<Integer> getCombos() {
+    public int[] getCombos() {
         return combos;
     }
 
-    public void setCombos(ArrayList<Integer> combos) {
+    public void setCombos(int[] combos) {
         this.combos = combos;
     }
 }
