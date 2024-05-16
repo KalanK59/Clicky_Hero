@@ -25,7 +25,7 @@ import java.util.Collections;
 public class StudentActivity2Backup extends AppCompatActivity {
 
     RecyclerView rvStudent;
-    ArrayList<Student2Backup> alStudents;
+    static ArrayList<Student2Backup> alStudents;
     private StudentAdapter2Backup studentAdapter;
     private Button btnRestart;
 
@@ -50,11 +50,11 @@ public class StudentActivity2Backup extends AppCompatActivity {
         rvStudent.setLayoutManager(layoutManager);
 
         alStudents = new ArrayList<>();
-        alStudents.add(new Student2Backup( "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup( "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup("Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup("Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup("Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2Backup(1, "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2Backup(2, "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2Backup(3,"Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2Backup(4,"Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2Backup(5,"Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
 
         studentAdapter = new StudentAdapter2Backup(alStudents, StudentActivity2Backup.this);
         rvStudent.setAdapter(studentAdapter);
@@ -72,8 +72,11 @@ public class StudentActivity2Backup extends AppCompatActivity {
         int score = prefs.getInt("score", 0);
         tvScore.setText(String.valueOf(score));
 
-
-        studentAdapter.notifyDataSetChanged();
+        // Update the background color of the items in the RecyclerView
+        for (int i = 0; i < alStudents.size(); i++) {
+            boolean isCorrect = prefs.getBoolean("correct_combo_" + alStudents.get(i).getComboID(), false);
+            studentAdapter.updateItemBackground(i, isCorrect);
+        }
     }
 
     private void restartGame() {

@@ -53,7 +53,7 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
         holder.imgArrow8.setImageResource(student.getCombos()[7]);
 
 
-        // Set initial background color to turquoise
+        // Set background color based on correctness
         holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
 
         holder.Container.setOnClickListener(v -> {
@@ -69,10 +69,23 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
         context.startActivity(intent);
     }
 
+    public void updateItemBackground(int position, boolean isCorrect) {
+        // Update the background color of the item at the given position based on isCorrect
+        if (isCorrect) {
+            // Set background color to green if correct
+            alStudents.get(position).setBackground(ContextCompat.getColor(context, R.color.green));
+        } else {
+            // Set background color to red if incorrect
+            alStudents.get(position).setBackground(ContextCompat.getColor(context, R.color.red));
+        }
+        notifyItemChanged(position);
+    }
+
     @Override
     public int getItemCount() {
         return alStudents.size();
     }
+
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
         TextView Name;
@@ -86,8 +99,7 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
         ImageView imgArrow7;
         ImageView imgArrow8;
 
-        @SuppressLint("StaticFieldLeak")
-        static LinearLayout Container;
+        LinearLayout Container;
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,5 +114,6 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
             imgArrow7 = itemView.findViewById(R.id.imgArrow6);
             imgArrow8 = itemView.findViewById(R.id.imgArrow7);
         }
+
     }
 }

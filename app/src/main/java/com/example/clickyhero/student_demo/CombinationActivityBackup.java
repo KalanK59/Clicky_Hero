@@ -1,5 +1,6 @@
 package com.example.clickyhero.student_demo;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -116,6 +117,7 @@ public class CombinationActivityBackup extends AppCompatActivity {
             Arrays.fill(pressStatus, false);
         }
         int score = getSharedPreferences("MyPrefs", MODE_PRIVATE).getInt("score", 0);
+        boolean isCorrect = areAllTrue(pressStatus);
         // Check if all buttons have been pressed correctly
         if (pressStatusIndex == pressStatus.length - 1) {
             // TODO Not good to finish, go to the previous activity and use shared preferences and
@@ -125,26 +127,21 @@ public class CombinationActivityBackup extends AppCompatActivity {
             if (areAllTrue(pressStatus)) {
                 // Increment score
                 score++;
-
-                // Save the correct combo state and score in SharedPreferences
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("correct_combo", true);
-                editor.putInt("score", score);
-                editor.apply();
-            } else {
-                // Save the incorrect combo state in SharedPreferences
-                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("correct_combo", false);
-                editor.apply();
             }
+
+            // Save the correctness state for this combo index in SharedPreferences
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("correct_combo_" + pressStatusIndex, areAllTrue(pressStatus));
+            editor.putInt("score", score);
+            editor.apply();
 
             finish();
 
         }
         pressStatusIndex++;
     }
+
 
     private boolean areAllTrue(boolean[] array) {
         for (boolean value : array) {
