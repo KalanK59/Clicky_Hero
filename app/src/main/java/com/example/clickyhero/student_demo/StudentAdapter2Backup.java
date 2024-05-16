@@ -60,7 +60,7 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
     }
 
     private void openCombinationsActivity(String name, int[] imageResource) {
-        Intent intent = new Intent(context, CombinationActivity.class);
+        Intent intent = new Intent(context, CombinationActivityBackup.class);
         intent.putExtra("imageResource", imageResource);
         intent.putExtra("name", name);
         context.startActivity(intent);

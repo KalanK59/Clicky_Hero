@@ -1,5 +1,8 @@
 package com.example.clickyhero.student_demo;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -7,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +25,7 @@ public class StudentActivity2Backup extends AppCompatActivity {
     ArrayList<Student2Backup> alStudents;
     private StudentAdapter2Backup studentAdapter;
     private Button btnRestart;
+    private int resultStatus = -1;
 
     private TextView tvScore;
 
@@ -63,6 +68,4 @@ public class StudentActivity2Backup extends AppCompatActivity {
         // Notify the adapter that the data has changed
         studentAdapter.notifyDataSetChanged();
     }
-
-
 }

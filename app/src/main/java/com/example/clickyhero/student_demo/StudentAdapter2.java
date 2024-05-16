@@ -20,11 +20,9 @@ import java.util.Collections;
 
 public class StudentAdapter2 extends RecyclerView.Adapter<StudentAdapter2.StudentViewHolder> {
     private final ArrayList<Student2> alStudents;
-    private final Context context;
 
-    public StudentAdapter2(ArrayList<Student2> alStudents, Context context) {
+    public StudentAdapter2(ArrayList<Student2> alStudents) {
         this.alStudents = alStudents;
-        this.context = context;
         // Shuffle the ArrayList
         Collections.shuffle(this.alStudents);
     }
@@ -40,26 +38,56 @@ public class StudentAdapter2 extends RecyclerView.Adapter<StudentAdapter2.Studen
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
         Student2 student = alStudents.get(position);
         holder.Name.setText(student.getName());
-//        holder.imgArrow1.setImageResource(student.getCombos()[0]);
-//        holder.imgArrow2.setImageResource(student.getCombos()[1]);
-//        holder.imgArrow3.setImageResource(student.getCombos()[2]);
-//        holder.imgArrow4.setImageResource(student.getCombos()[3]);
-//        holder.imgArrow5.setImageResource(student.getCombos()[4]);
-//        holder.imgArrow6.setImageResource(student.getCombos()[5]);
-//        holder.imgArrow7.setImageResource(student.getCombos()[6]);
-//        holder.imgArrow8.setImageResource(student.getCombos()[7]);
-
+        int[] combos = student.getCombos();
+        for (int i = 0; i < Math.min(combos.length, 8); i++) {
+            switch (i) {
+                case 0:
+                    holder.imgArrow1.setImageResource(combos[i]);
+                    break;
+                case 1:
+                    holder.imgArrow2.setImageResource(combos[i]);
+                    break;
+                case 2:
+                    holder.imgArrow3.setImageResource(combos[i]);
+                    break;
+                case 3:
+                    holder.imgArrow4.setImageResource(combos[i]);
+                    break;
+                case 4:
+                    holder.imgArrow5.setImageResource(combos[i]);
+                    break;
+                case 5:
+                    holder.imgArrow6.setImageResource(combos[i]);
+                    break;
+                case 6:
+                    holder.imgArrow7.setImageResource(combos[i]);
+                    break;
+                case 7:
+                    holder.imgArrow8.setImageResource(combos[i]);
+                    break;
+            }
+        }
 
         // Set background color to turquoise
-        holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
+        holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.turquoise));
 
         holder.Container.setOnClickListener(v -> {
-//            int[] imageResources = student.getCombos();
-//            openCombinationsActivity(student.getName(), imageResources);
+            int[] imageResources = student.getCombos();
+            openCombinationsActivity(holder.itemView.getContext(), student.getName(), imageResources);
         });
     }
 
-    private void openCombinationsActivity(String name, int[] imageResource) {
+    public interface OnStudentClickListener {
+        void onStudentClick(int position, Student2 student);
+    }
+
+    private OnStudentClickListener onStudentClickListener;
+
+    public void setOnStudentClickListener(OnStudentClickListener onStudentClickListener) {
+        this.onStudentClickListener = onStudentClickListener;
+    }
+
+    private void openCombinationsActivity(Context context, String name, int[] imageResource) {
         Intent intent = new Intent(context, CombinationActivity.class);
         intent.putExtra("imageResource", imageResource);
         intent.putExtra("name", name);

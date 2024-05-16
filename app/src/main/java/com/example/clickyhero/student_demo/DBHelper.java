@@ -1,5 +1,6 @@
 package com.example.clickyhero.student_demo;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,7 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.clickyhero.R;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -42,28 +46,28 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Student2> getAllCombos() {
-
-        ArrayList<Student2> alStudents = new ArrayList<>();
-
+        ArrayList<Student2> alCombos = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor resultSet = db.query("tblCombos", new String[]{"comboID", "ComboName", "ComboSequence"}, null, null, null, null, null);
+        Cursor resultSet = db.query("tblCombos", new String[]{"ComboName", "ComboSequence"}, null, null, null, null, null);
         while (resultSet.moveToNext()) {
-            Student2 student = new Student2();
-            student.setComboID(String.valueOf(resultSet.getInt(0)));
-            student.setName(resultSet.getString(1));
-
-            // Parse the ComboSequence string into an ArrayList<Integer>
-            String comboSequenceString = resultSet.getString(2);
-            ArrayList<Integer> comboSequence = new ArrayList<>();
-            String[] comboSequenceArray = comboSequenceString.split(",");
-            for (String numString : comboSequenceArray) {
-                comboSequence.add(Integer.parseInt(numString.trim()));
-            }
-
-            student.setCombos(comboSequence);
-            alStudents.add(student);
+            Student2 combo = new Student2();
+            combo.setName(resultSet.getString(0));
+            combo.setCombos(resultSet.getString(1));
+            alCombos.add(combo);
         }
-        return alStudents;
+
+        return alCombos;
+    }
+
+
+    public long add(Student2 resupply) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("ComboName", resupply.getName());
+        values.put("ComboSequence", Arrays.toString(resupply.getCombos()));
+
+        return db.insert("tblCombos", null, values);
     }
 }

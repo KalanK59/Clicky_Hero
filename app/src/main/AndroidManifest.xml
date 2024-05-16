@@ -35,6 +35,13 @@
         </intent-filter>
         </activity>
         <activity
+            android:name=".student_demo.CombinationActivityBackup"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ClickyHero">
+        </activity>
+
+        <activity
             android:name=".student_demo.StudentActivity2Backup"
             android:exported="true"
             android:label="@string/app_name"
