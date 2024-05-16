@@ -50,8 +50,8 @@ public class StudentActivity2Backup extends AppCompatActivity {
         rvStudent.setLayoutManager(layoutManager);
 
         alStudents = new ArrayList<>();
-        alStudents.add(new Student2Backup("Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup("Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2Backup( "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2Backup( "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
         alStudents.add(new Student2Backup("Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
         alStudents.add(new Student2Backup("Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
         alStudents.add(new Student2Backup("Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
@@ -71,6 +71,7 @@ public class StudentActivity2Backup extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         int score = prefs.getInt("score", 0);
         tvScore.setText(String.valueOf(score));
+
 
         studentAdapter.notifyDataSetChanged();
     }
