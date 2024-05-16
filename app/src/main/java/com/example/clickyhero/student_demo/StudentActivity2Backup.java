@@ -72,7 +72,7 @@ public class StudentActivity2Backup extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         int score = prefs.getInt("score", 0);
         tvScore.setText(String.valueOf(score));
-        rvStudent.setBackgroundColor(Color.GREEN);
+        //rvStudent.setBackgroundColor(Color.GREEN);
         //rvStudent.setBackgroundColor(Color.RED);
 
     }

@@ -58,14 +58,15 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
 
         holder.Container.setOnClickListener(v -> {
             int[] imageResources = student.getCombos();
-            openCombinationsActivity(student.getName(), imageResources);
+            openCombinationsActivity(student.getName(), imageResources, position);
         });
     }
 
-    private void openCombinationsActivity(String name, int[] imageResource) {
+    private void openCombinationsActivity(String name, int[] imageResource, int position) {
         Intent intent = new Intent(context, CombinationActivityBackup.class);
         intent.putExtra("imageResource", imageResource);
         intent.putExtra("name", name);
+        intent.putExtra("position", position);
         context.startActivity(intent);
     }
 

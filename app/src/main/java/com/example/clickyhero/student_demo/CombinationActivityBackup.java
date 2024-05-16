@@ -116,7 +116,10 @@ public class CombinationActivityBackup extends AppCompatActivity {
             // Reset press status for all buttons if a mistake is made
             Arrays.fill(pressStatus, false);
         }
-        int score = getSharedPreferences("MyPrefs", MODE_PRIVATE).getInt("score", 0);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        int score = sharedPreferences.getInt("score", 0);
         boolean isCorrect = areAllTrue(pressStatus);
         // Check if all buttons have been pressed correctly
         if (pressStatusIndex == pressStatus.length - 1) {
@@ -127,13 +130,10 @@ public class CombinationActivityBackup extends AppCompatActivity {
             if (areAllTrue(pressStatus)) {
                 // Increment score
                 score++;
+                editor.putInt("score", score);
+                editor.apply();
             }
 
-            // Save the correctness state for this combo index in SharedPreferences
-            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("score", score);
-            editor.apply();
 
             finish();
 
