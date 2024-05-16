@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewHolder> {
-    private final ArrayList<Combos> alStudents;
+    private final ArrayList<Combos> comboList;
     private final Context context;
 
 
@@ -28,10 +28,10 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
     private boolean incorrect = false;
 
     public ComboAdapter(ArrayList<Combos> alStudents, Context context) {
-        this.alStudents = alStudents;
+        this.comboList = alStudents;
         this.context = context;
         // Shuffle the ArrayList
-        Collections.shuffle(this.alStudents);
+        Collections.shuffle(this.comboList);
     }
 
     @NonNull
@@ -43,7 +43,7 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
-        Combos student = alStudents.get(position);
+        Combos student = comboList.get(position);
         holder.Name.setText(student.getName());
         holder.imgArrow1.setImageResource(student.getCombos()[0]);
         holder.imgArrow2.setImageResource(student.getCombos()[1]);
@@ -71,7 +71,7 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
     }
 
     private void openCombinationsActivity(String name, int[] imageResource) {
-        Intent intent = new Intent(context, CombinationActivityBackup.class);
+        Intent intent = new Intent(context, CombinationActivity.class);
         intent.putExtra("imageResource", imageResource);
         intent.putExtra("name", name);
         context.startActivity(intent);
@@ -80,7 +80,7 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
 
     @Override
     public int getItemCount() {
-        return alStudents.size();
+        return comboList.size();
     }
 
 

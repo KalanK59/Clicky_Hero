@@ -1,6 +1,5 @@
 package com.example.clickyhero.student_demo;
 
-import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +16,7 @@ import com.example.clickyhero.R;
 
 import java.util.Arrays;
 
-public class CombinationActivityBackup extends AppCompatActivity {
+public class CombinationActivity extends AppCompatActivity {
     TextView tvUpdate;
     ImageView image1, image2, image3, image4, image5, image6, image7, image8;
     ImageButton btnUp, btnDown, btnLeft, btnRight;
@@ -102,17 +101,21 @@ public class CombinationActivityBackup extends AppCompatActivity {
         Log.d("DEBUG", "correctBtnId: " + correctBtnId);
         Log.d("DEBUG", "sentBtnId: " + sentBtnId);
 
+        boolean correct;
+
         // Check if the current button press is correct (in sequence)
         if (sentBtnId == correctBtnId) {
             // Set correct press status (gold star)
             imageView.setImageResource(android.R.drawable.btn_star_big_on);
             pressStatus[pressStatusIndex] = true;
+            correct = true;
 
         } else {
             // Set incorrect press status (grey star)
             imageView.setImageResource(android.R.drawable.btn_star_big_off);
             // Reset press status for all buttons if a mistake is made
             Arrays.fill(pressStatus, false);
+            correct = false;
         }
 
         // Update combo status in database
@@ -123,23 +126,23 @@ public class CombinationActivityBackup extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         int score = sharedPreferences.getInt("score", 0);
-        boolean isCorrect = areAllTrue(pressStatus);
         // Check if all buttons have been pressed correctly
         if (pressStatusIndex == pressStatus.length - 1) {
-            // TODO Not good to finish, go to the previous activity and use shared preferences and
-            // TODO update the wrong and the right colours for the linearlayout with the number of correct combos
-
             // Assuming pressStatus is your array containing button press statuses
             if (areAllTrue(pressStatus)) {
                 // Increment score
                 score++;
                 editor.putInt("score", score);
-                editor.apply();
+                // Store the correct combo status
+                editor.putBoolean("correct_combo", true);
+            } else {
+                // Store the incorrect combo status
+                editor.putBoolean("correct_combo", false);
             }
+            editor.apply();
 
-
+            // Finish the activity and return to the previous one
             finish();
-
         }
         pressStatusIndex++;
     }

@@ -9,10 +9,11 @@ public class Combos {
     private boolean correct;
 
 
+
     public Combos(int comboID, String name, int[] combos) {
-        this.combos = combos;
-        this.name = name;
         this.comboID = comboID;
+        this.name = name;
+        this.combos = combos;
     }
 
     public Combos() {

@@ -9,11 +9,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DBComboHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "tblCombos";
 
-    public DBComboHelper(Context context) {
+    public DBHelper(Context context) {
         super(context, "dbClickyCombos", null, 1);
     }
 
