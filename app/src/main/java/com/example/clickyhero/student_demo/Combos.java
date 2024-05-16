@@ -1,6 +1,6 @@
 package com.example.clickyhero.student_demo;
 
-public class Student2Backup {
+public class Combos {
 
     private int comboID;
     private String name;
@@ -9,13 +9,13 @@ public class Student2Backup {
     private boolean correct;
 
 
-    public Student2Backup(int comboID, String name, int[] combos) {
+    public Combos(int comboID, String name, int[] combos) {
         this.combos = combos;
         this.name = name;
         this.comboID = comboID;
     }
 
-    public Student2Backup() {
+    public Combos() {
 
     }
 

@@ -115,6 +115,11 @@ public class CombinationActivityBackup extends AppCompatActivity {
             Arrays.fill(pressStatus, false);
         }
 
+        // Update combo status in database
+
+//        DBComboHelper dbComboHelper = new DBComboHelper(this);
+//        dbComboHelper.updateComboStatus(sentBtnId, pressStatus[pressStatusIndex]);
+
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         int score = sharedPreferences.getInt("score", 0);
@@ -122,7 +127,7 @@ public class CombinationActivityBackup extends AppCompatActivity {
         // Check if all buttons have been pressed correctly
         if (pressStatusIndex == pressStatus.length - 1) {
             // TODO Not good to finish, go to the previous activity and use shared preferences and
-            // TODO update the wrong and the right colours for the linearlayout with teh number of correct combos
+            // TODO update the wrong and the right colours for the linearlayout with the number of correct combos
 
             // Assuming pressStatus is your array containing button press statuses
             if (areAllTrue(pressStatus)) {

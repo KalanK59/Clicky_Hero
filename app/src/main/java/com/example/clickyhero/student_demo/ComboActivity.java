@@ -1,21 +1,13 @@
 package com.example.clickyhero.student_demo;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,12 +16,12 @@ import com.example.clickyhero.R;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class StudentActivity2Backup extends AppCompatActivity {
+public class ComboActivity extends AppCompatActivity {
 
     public static int score;
     RecyclerView rvStudent;
-    static ArrayList<Student2Backup> alStudents;
-    private StudentAdapter2Backup studentAdapter;
+    static ArrayList<Combos> alStudents;
+    private ComboAdapter studentAdapter;
     private Button btnRestart;
 
     private TextView tvScore;
@@ -49,21 +41,21 @@ public class StudentActivity2Backup extends AppCompatActivity {
 
         tvScore = findViewById(R.id.tvScore);
 
-        LinearLayoutManager layoutManager =  new LinearLayoutManager(StudentActivity2Backup.this);
+        LinearLayoutManager layoutManager =  new LinearLayoutManager(ComboActivity.this);
         rvStudent.setLayoutManager(layoutManager);
 
         alStudents = new ArrayList<>();
-        alStudents.add(new Student2Backup(0, "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup(1, "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup(2,"Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup(3,"Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup(4,"Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Combos(0, "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Combos(1, "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Combos(2,"Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Combos(3,"Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Combos(4,"Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
 
         DBComboHelper dbComboHelper = new DBComboHelper(this);
         dbComboHelper.addCombos(alStudents);
 
 
-        studentAdapter = new StudentAdapter2Backup(alStudents, StudentActivity2Backup.this);
+        studentAdapter = new ComboAdapter(alStudents, ComboActivity.this);
         rvStudent.setAdapter(studentAdapter);
 
 
