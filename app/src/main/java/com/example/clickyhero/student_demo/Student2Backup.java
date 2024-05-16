@@ -1,7 +1,5 @@
 package com.example.clickyhero.student_demo;
 
-import java.util.ArrayList;
-
 public class Student2Backup {
 
     private int comboID;

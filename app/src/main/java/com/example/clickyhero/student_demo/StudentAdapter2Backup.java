@@ -69,18 +69,6 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
         context.startActivity(intent);
     }
 
-    public void updateItemBackground(int position, boolean isCorrect) {
-        // Update the background color of the item at the given position based on isCorrect
-        if (isCorrect) {
-            // Set background color to green if correct
-            alStudents.get(position).setBackground(ContextCompat.getColor(context, R.color.green));
-        } else {
-            // Set background color to red if incorrect
-            alStudents.get(position).setBackground(ContextCompat.getColor(context, R.color.red));
-        }
-        notifyItemChanged(position);
-    }
-
     @Override
     public int getItemCount() {
         return alStudents.size();

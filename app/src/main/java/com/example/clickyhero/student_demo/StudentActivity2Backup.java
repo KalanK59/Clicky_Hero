@@ -1,5 +1,6 @@
 package com.example.clickyhero.student_demo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -71,12 +72,9 @@ public class StudentActivity2Backup extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         int score = prefs.getInt("score", 0);
         tvScore.setText(String.valueOf(score));
+        rvStudent.setBackgroundColor(Color.GREEN);
+        //rvStudent.setBackgroundColor(Color.RED);
 
-        // Update the background color of the items in the RecyclerView
-        for (int i = 0; i < alStudents.size(); i++) {
-            boolean isCorrect = prefs.getBoolean("correct_combo_" + alStudents.get(i).getComboID(), false);
-            studentAdapter.updateItemBackground(i, isCorrect);
-        }
     }
 
     private void restartGame() {

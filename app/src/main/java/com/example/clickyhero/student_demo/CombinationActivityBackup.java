@@ -132,7 +132,6 @@ public class CombinationActivityBackup extends AppCompatActivity {
             // Save the correctness state for this combo index in SharedPreferences
             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("correct_combo_" + pressStatusIndex, areAllTrue(pressStatus));
             editor.putInt("score", score);
             editor.apply();
 
