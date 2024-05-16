@@ -25,13 +25,13 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
     private final ArrayList<Student2Backup> alStudents;
     private final Context context;
 
-    private int correctAttempts;
 
+    private boolean correct = false;
+    private boolean incorrect = false;
 
     public StudentAdapter2Backup(ArrayList<Student2Backup> alStudents, Context context) {
         this.alStudents = alStudents;
         this.context = context;
-        this.correctAttempts = 0;
         // Shuffle the ArrayList
         Collections.shuffle(this.alStudents);
     }
