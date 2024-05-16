@@ -1,7 +1,10 @@
 package com.example.clickyhero.student_demo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +53,7 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
         holder.imgArrow8.setImageResource(student.getCombos()[7]);
 
 
-        // Set background color to turquoise
+        // Set initial background color to turquoise
         holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
 
         holder.Container.setOnClickListener(v -> {
@@ -83,7 +86,8 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
         ImageView imgArrow7;
         ImageView imgArrow8;
 
-        LinearLayout Container;
+        @SuppressLint("StaticFieldLeak")
+        static LinearLayout Container;
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);

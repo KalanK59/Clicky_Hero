@@ -28,14 +28,14 @@ public class DBHelper extends SQLiteOpenHelper {
         // Creating tables
 
         //Creating table combos
-        String query = "" ;
+        String query = "";
 
         query = "CREATE TABLE tblCombos" +
                 "(" +
                 "comboID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "ComboName TEXT, " +
                 "ComboSequence INTEGER" +
-                ");" ;
+                ");";
 
         db.execSQL(query);
     }
@@ -50,15 +50,21 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor resultSet = db.query("tblCombos", new String[]{"ComboName", "ComboSequence"}, null, null, null, null, null);
         while (resultSet.moveToNext()) {
-            Student2 combo = new Student2();
-            combo.setName(resultSet.getString(0));
-            combo.setCombos(resultSet.getString(1));
-            alCombos.add(combo);
+            String comboName = resultSet.getString(0);
+            String comboSequenceString = resultSet.getString(1);
+
+            // Convert the combo sequence string to an array of integers
+            String[] comboSequenceArray = comboSequenceString.split(",");
+            int[] comboSequence = new int[comboSequenceArray.length];
+            for (int i = 0; i < comboSequenceArray.length; i++) {
+                comboSequence[i] = Integer.parseInt(comboSequenceArray[i].trim());
+            }
+
+            alCombos.add(new Student2(comboName, comboSequence));
         }
 
         return alCombos;
     }
-
 
     public long add(Student2 resupply) {
 
@@ -66,7 +72,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put("ComboName", resupply.getName());
-        values.put("ComboSequence", Arrays.toString(resupply.getCombos()));
+        // Convert the combo sequence array to a string
+        StringBuilder comboSequenceString = new StringBuilder();
+        for (int i = 0; i < resupply.getCombos().length; i++) {
+            comboSequenceString.append(resupply.getCombos()[i]);
+            if (i < resupply.getCombos().length - 1) {
+                comboSequenceString.append(",");
+            }
+        }
+        values.put("ComboSequence", comboSequenceString.toString());
 
         return db.insert("tblCombos", null, values);
     }

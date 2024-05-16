@@ -1,9 +1,12 @@
 package com.example.clickyhero.student_demo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -25,7 +28,6 @@ public class StudentActivity2Backup extends AppCompatActivity {
     ArrayList<Student2Backup> alStudents;
     private StudentAdapter2Backup studentAdapter;
     private Button btnRestart;
-    private int resultStatus = -1;
 
     private TextView tvScore;
 
@@ -48,8 +50,8 @@ public class StudentActivity2Backup extends AppCompatActivity {
         rvStudent.setLayoutManager(layoutManager);
 
         alStudents = new ArrayList<>();
-        alStudents.add(new Student2Backup( "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Student2Backup( "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2Backup("Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+        alStudents.add(new Student2Backup("Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
         alStudents.add(new Student2Backup("Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
         alStudents.add(new Student2Backup("Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
         alStudents.add(new Student2Backup("Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
@@ -59,9 +61,27 @@ public class StudentActivity2Backup extends AppCompatActivity {
 
 
         btnRestart.setOnClickListener(v -> restartGame());
+
+}
+    // Changes the tvScore text with the correct value.
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        int score = prefs.getInt("score", 0);
+        tvScore.setText(String.valueOf(score));
+
+        studentAdapter.notifyDataSetChanged();
     }
 
     private void restartGame() {
+        // Set score to 0
+        getSharedPreferences("MyPrefs", MODE_PRIVATE).edit().putInt("score", 0).apply();
+
+        // Update tvScore text
+        tvScore.setText("0");
+
         // Randomize order of combinations
         Collections.shuffle(alStudents);
 

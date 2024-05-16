@@ -1,5 +1,6 @@
 package com.example.clickyhero.student_demo;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
@@ -114,14 +115,43 @@ public class CombinationActivityBackup extends AppCompatActivity {
             // Reset press status for all buttons if a mistake is made
             Arrays.fill(pressStatus, false);
         }
+        int score = getSharedPreferences("MyPrefs", MODE_PRIVATE).getInt("score", 0);
         // Check if all buttons have been pressed correctly
         if (pressStatusIndex == pressStatus.length - 1) {
             // TODO Not good to finish, go to the previous activity and use shared preferences and
             // TODO update the wrong and the right colours for the linearlayout with teh number of correct combos
 
+            // Assuming pressStatus is your array containing button press statuses
+            if (areAllTrue(pressStatus)) {
+                // Increment score
+                score++;
+
+                // Save the correct combo state and score in SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("correct_combo", true);
+                editor.putInt("score", score);
+                editor.apply();
+            } else {
+                // Save the incorrect combo state in SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("correct_combo", false);
+                editor.apply();
+            }
+
             finish();
 
         }
         pressStatusIndex++;
+    }
+
+    private boolean areAllTrue(boolean[] array) {
+        for (boolean value : array) {
+            if (!value) {
+                return false;
+            }
+        }
+        return true;
     }
 }

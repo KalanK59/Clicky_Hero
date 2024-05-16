@@ -8,6 +8,8 @@ public class Student2Backup {
     private String name;
     private int[] combos;
 
+
+
     public Student2Backup(String name, int[] combos) {
         this.combos = combos;
         this.name = name;
@@ -40,4 +42,5 @@ public class Student2Backup {
     public void setCombos(int[] combos) {
         this.combos = combos;
     }
+
 }

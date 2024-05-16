@@ -17,15 +17,15 @@ public class Student2 {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int[] getCombos() {
         return combos;
     }
 
-    public void setCombos(String combos) {
+    public void setCombos(int[] combos) {
         this.combos = combos;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
