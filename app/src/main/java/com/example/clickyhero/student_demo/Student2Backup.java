@@ -7,16 +7,12 @@ public class Student2Backup {
     private int[] combos;
 
     private boolean correct;
-    private boolean attempted;
-
-    private int backgroundColor;
 
 
     public Student2Backup(int comboID, String name, int[] combos) {
         this.combos = combos;
         this.name = name;
         this.comboID = comboID;
-        this.attempted = false;
     }
 
     public Student2Backup() {
@@ -25,10 +21,6 @@ public class Student2Backup {
 
     public int getComboID() {
         return comboID;
-    }
-
-    public void setBackground(int color) {
-        this.backgroundColor = color;
     }
 
     public void setComboID(int comboID) {
@@ -59,21 +51,4 @@ public class Student2Backup {
         this.correct = correct;
     }
 
-
-
-    public void setBackgroundColor(int color) {
-        this.backgroundColor = color;
-    }
-
-    public int getBackgroundColor() {
-        return backgroundColor;
-    }
-
-    public boolean isAttempted() {
-        return correct;
-    }
-
-    public void setAttempted(boolean attempted) {
-        this.attempted = attempted;
-    }
 }

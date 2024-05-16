@@ -58,7 +58,6 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
 
 
         // Set background color based on correctness
-        // Set background color based on correctness
         holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
 
         holder.Container.setOnClickListener(v -> {
@@ -74,6 +73,7 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
         intent.putExtra("position", position);
         context.startActivity(intent);
     }
+
 
     @Override
     public int getItemCount() {

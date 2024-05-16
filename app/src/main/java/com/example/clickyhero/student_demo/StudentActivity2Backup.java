@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -58,6 +59,10 @@ public class StudentActivity2Backup extends AppCompatActivity {
         alStudents.add(new Student2Backup(3,"Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
         alStudents.add(new Student2Backup(4,"Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
 
+        DBComboHelper dbComboHelper = new DBComboHelper(this);
+        dbComboHelper.addCombos(alStudents);
+
+
         studentAdapter = new StudentAdapter2Backup(alStudents, StudentActivity2Backup.this);
         rvStudent.setAdapter(studentAdapter);
 
@@ -77,8 +82,6 @@ public class StudentActivity2Backup extends AppCompatActivity {
 //        Intent intent = new Intent(StudentActivity2Backup.this,  CongratulationsActivity.class);
 //        intent.putExtra("score", score);
 //        startActivity(intent);
-
-
 
         //rvStudent.setBackgroundColor(Color.GREEN);
         //rvStudent.setBackgroundColor(Color.RED);
