@@ -7,6 +7,7 @@ public class Student2Backup {
     private int[] combos;
 
     private boolean correct;
+    private boolean attempted;
 
     private int backgroundColor;
 
@@ -15,6 +16,7 @@ public class Student2Backup {
         this.combos = combos;
         this.name = name;
         this.comboID = comboID;
+        this.attempted = false;
     }
 
     public Student2Backup() {
@@ -67,4 +69,11 @@ public class Student2Backup {
         return backgroundColor;
     }
 
+    public boolean isAttempted() {
+        return correct;
+    }
+
+    public void setAttempted(boolean attempted) {
+        this.attempted = attempted;
+    }
 }

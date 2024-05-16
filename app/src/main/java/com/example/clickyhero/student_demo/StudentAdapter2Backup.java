@@ -25,9 +25,13 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
     private final ArrayList<Student2Backup> alStudents;
     private final Context context;
 
+    private int correctAttempts;
+
+
     public StudentAdapter2Backup(ArrayList<Student2Backup> alStudents, Context context) {
         this.alStudents = alStudents;
         this.context = context;
+        this.correctAttempts = 0;
         // Shuffle the ArrayList
         Collections.shuffle(this.alStudents);
     }
@@ -53,6 +57,7 @@ public class StudentAdapter2Backup extends RecyclerView.Adapter<StudentAdapter2B
         holder.imgArrow8.setImageResource(student.getCombos()[7]);
 
 
+        // Set background color based on correctness
         // Set background color based on correctness
         holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
 
