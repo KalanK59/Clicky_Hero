@@ -16,6 +16,7 @@ import com.example.clickyhero.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class ComboMainActivity extends AppCompatActivity {
     RecyclerView rvStudent;
@@ -70,8 +71,10 @@ public class ComboMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         studentAdapter.notifyDataSetChanged();
+
+        //get the update from the dbHelper show the updated colours for the results
+
 
         SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         int score = prefs.getInt("score", 0);

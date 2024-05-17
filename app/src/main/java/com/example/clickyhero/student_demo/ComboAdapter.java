@@ -54,13 +54,11 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
         holder.imgArrow7.setImageResource(student.getCombos()[6]);
         holder.imgArrow8.setImageResource(student.getCombos()[7]);
 
-
-        // Set background color based on correctness
-        holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
+        holder.itemView.setBackgroundColor(Color.CYAN);
 
         if (student.isCorrect()) {
             holder.itemView.setBackgroundColor(Color.GREEN);
-        } else  {
+        } else {
             holder.itemView.setBackgroundColor(Color.RED);
         }
 
@@ -103,6 +101,7 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
+
             Name = itemView.findViewById(R.id.tvName);
             Container = itemView.findViewById(R.id.Container);
             imgArrow1 = itemView.findViewById(R.id.imgArrow);

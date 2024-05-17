@@ -98,7 +98,7 @@ public class CombinationActivity extends AppCompatActivity {
         }
     }
 
-   /* private void handlePress(ImageView imageView, int sentBtnId) {
+  /* private void handlePress(ImageView imageView, int sentBtnId) {
         int correctBtnId = imageResources[pressStatusIndex];
         Log.d("DEBUG", "correctBtnId: " + correctBtnId);
         Log.d("DEBUG", "sentBtnId: " + sentBtnId);
@@ -154,38 +154,41 @@ public class CombinationActivity extends AppCompatActivity {
         if (sentBtnId == correctBtnId) {
             // Set correct press status (gold star)
             imageView.setImageResource(android.R.drawable.btn_star_big_on);
-            // Do not update pressStatus array to true, keep it false
+            pressStatus[pressStatusIndex] = true;
         } else {
             // Set incorrect press status (grey star)
             imageView.setImageResource(android.R.drawable.btn_star_big_off);
-            // Do not reset pressStatus array, keep it as it is
+            pressStatus[pressStatusIndex] = false; // Mark the press as incorrect
         }
 
+        pressStatusIndex++;
+
         // Update combo status in database
+
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         int score = sharedPreferences.getInt("score", 0);
 
-        // Check if all buttons have been pressed correctly
-        if (pressStatusIndex == pressStatus.length - 1) {
-            // Assuming pressStatus is your array containing button press statuses
-            if (areAllTrue(pressStatus)) {
-                // Increment score
+        // Check if all buttons have been pressed
+        if (pressStatusIndex == pressStatus.length) {
+            // Check if all buttons were pressed correctly
+            boolean comboCorrect = areAllTrue(pressStatus);
+            if (comboCorrect) {
+                // Increment score if all buttons pressed correctly
                 score++;
                 editor.putInt("score", score);
             }
+
             editor.apply();
 
             // Finish the activity and return to the previous one
-            Log.d("ComboUpdate", "pressStatusIndex: " + pressStatus[pressStatusIndex]);
             DBHelper dbComboHelper = new DBHelper(this);
-            dbComboHelper.updateComboStatus(selectedCombo, pressStatus[pressStatusIndex]);
+            dbComboHelper.updateComboStatus(selectedCombo, comboCorrect);
 
+            // Finish the activity and return to the previous one
             finish();
         }
-        pressStatusIndex++;
     }
-
 
     private boolean areAllTrue(boolean[] array) {
         for (boolean value : array) {
