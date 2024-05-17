@@ -1,6 +1,8 @@
 package com.example.clickyhero.student_demo;
 
-public class Combos {
+import java.io.Serializable;
+
+public class Combos implements Serializable {
 
     private int comboID;
     private String name;
@@ -14,6 +16,7 @@ public class Combos {
         this.comboID = comboID;
         this.name = name;
         this.combos = combos;
+        this.correct = true;
     }
 
     public Combos() {

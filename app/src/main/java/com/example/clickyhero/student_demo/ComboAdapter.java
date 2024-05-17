@@ -58,23 +58,26 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
         // Set background color based on correctness
         holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.turquoise));
 
-        if (correct) {
+        if (student.isCorrect()) {
             holder.itemView.setBackgroundColor(Color.GREEN);
-        } else if (incorrect) {
+        } else  {
             holder.itemView.setBackgroundColor(Color.RED);
         }
 
         holder.Container.setOnClickListener(v -> {
             int[] imageResources = student.getCombos();
-            openCombinationsActivity(student.getName(), imageResources);
+            openCombinationsActivity(student, student.getName(), imageResources);
         });
     }
 
-    private void openCombinationsActivity(String name, int[] imageResource) {
+    private void openCombinationsActivity(Combos student, String name, int[] imageResource) {
         Intent intent = new Intent(context, CombinationActivity.class);
         intent.putExtra("imageResource", imageResource);
         intent.putExtra("name", name);
+        intent.putExtra("student", student);
         context.startActivity(intent);
+//        context.finish();
+
     }
 
 

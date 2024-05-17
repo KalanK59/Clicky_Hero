@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String query = "CREATE TABLE tblCombos " +
                 "(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "Correct INTEGER DEFAULT 0, " +
+                "correct INTEGER DEFAULT 0, " +
                 "combos TEXT, " +
                 "name TEXT" +
                 ")";
@@ -38,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Combos> alStudents = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor resultSet = db.query(TABLE_NAME,
-                new String[]{"comboID", "name", "combos", "correct"},
+                new String[]{"id", "name", "combos", "correct"},
                 null, null, null, null, null);
 
         while (resultSet.moveToNext()) {
@@ -49,6 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
             student.setCorrect(resultSet.getInt(3) == 1);
             alStudents.add(student);
         }
+        Log.d("getAllCombos", alStudents.size() + "");
 
         resultSet.close();
         db.close();
@@ -62,6 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("name", student.getName());
             values.put("combos", Arrays.toString(student.getCombos()));
             values.put("correct", student.isCorrect() ? 1 : 0);
+            Log.d("addCombos", values.toString());
             db.insert(TABLE_NAME, null, values);
         }
         db.close();
@@ -84,5 +87,16 @@ public class DBHelper extends SQLiteOpenHelper {
             array[i] = Integer.parseInt(parts[i]);
         }
         return array;
+    }
+
+    public void updateComboStatus(Combos selectedCombo, boolean pressStatus) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+//        values.put("name", selectedCombo.getName());
+//        values.put("combos", Arrays.toString(selectedCombo.getCombos()));
+        values.put("correct", pressStatus);
+        Log.d("updateComboStatus", values.toString());
+        db.update(TABLE_NAME, values, "id=?", new String[]{String.valueOf(selectedCombo.getComboID())});
+        db.close();
     }
 }

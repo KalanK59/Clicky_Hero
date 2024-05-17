@@ -26,6 +26,7 @@ public class CombinationActivity extends AppCompatActivity {
     ImageView[] comboIcons;
     int pressStatusIndex = 0;
     int countNonTransparentImages = 0;
+    private Combos selectedCombo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class CombinationActivity extends AppCompatActivity {
         comboIcons = new ImageView[8];
 
         Bundle extras = getIntent().getExtras();
+        selectedCombo = (Combos) extras.getSerializable("student");
 
         String name = extras.getString("name", "");
         tvUpdate.setText(name);
@@ -96,32 +98,27 @@ public class CombinationActivity extends AppCompatActivity {
         }
     }
 
-    private void handlePress(ImageView imageView, int sentBtnId) {
+   /* private void handlePress(ImageView imageView, int sentBtnId) {
         int correctBtnId = imageResources[pressStatusIndex];
         Log.d("DEBUG", "correctBtnId: " + correctBtnId);
         Log.d("DEBUG", "sentBtnId: " + sentBtnId);
 
-        boolean correct;
 
         // Check if the current button press is correct (in sequence)
         if (sentBtnId == correctBtnId) {
             // Set correct press status (gold star)
             imageView.setImageResource(android.R.drawable.btn_star_big_on);
             pressStatus[pressStatusIndex] = true;
-            correct = true;
 
         } else {
             // Set incorrect press status (grey star)
             imageView.setImageResource(android.R.drawable.btn_star_big_off);
             // Reset press status for all buttons if a mistake is made
             Arrays.fill(pressStatus, false);
-            correct = false;
         }
 
         // Update combo status in database
 
-//        DBComboHelper dbComboHelper = new DBComboHelper(this);
-//        dbComboHelper.updateComboStatus(sentBtnId, pressStatus[pressStatusIndex]);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -133,15 +130,57 @@ public class CombinationActivity extends AppCompatActivity {
                 // Increment score
                 score++;
                 editor.putInt("score", score);
-                // Store the correct combo status
-                editor.putBoolean("correct_combo", true);
-            } else {
-                // Store the incorrect combo status
-                editor.putBoolean("correct_combo", false);
+
             }
             editor.apply();
 
             // Finish the activity and return to the previous one
+            Log.d("ComboUpdate", "pressStatusIndex: " + pressStatus[pressStatusIndex]);
+            DBHelper dbComboHelper = new DBHelper(this);
+            dbComboHelper.updateComboStatus(selectedCombo, pressStatus[pressStatusIndex]);
+
+            finish();
+
+        }
+        pressStatusIndex++;
+    } */
+
+    private void handlePress(ImageView imageView, int sentBtnId) {
+        int correctBtnId = imageResources[pressStatusIndex];
+        Log.d("DEBUG", "correctBtnId: " + correctBtnId);
+        Log.d("DEBUG", "sentBtnId: " + sentBtnId);
+
+        // Check if the current button press is correct (in sequence)
+        if (sentBtnId == correctBtnId) {
+            // Set correct press status (gold star)
+            imageView.setImageResource(android.R.drawable.btn_star_big_on);
+            // Do not update pressStatus array to true, keep it false
+        } else {
+            // Set incorrect press status (grey star)
+            imageView.setImageResource(android.R.drawable.btn_star_big_off);
+            // Do not reset pressStatus array, keep it as it is
+        }
+
+        // Update combo status in database
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        int score = sharedPreferences.getInt("score", 0);
+
+        // Check if all buttons have been pressed correctly
+        if (pressStatusIndex == pressStatus.length - 1) {
+            // Assuming pressStatus is your array containing button press statuses
+            if (areAllTrue(pressStatus)) {
+                // Increment score
+                score++;
+                editor.putInt("score", score);
+            }
+            editor.apply();
+
+            // Finish the activity and return to the previous one
+            Log.d("ComboUpdate", "pressStatusIndex: " + pressStatus[pressStatusIndex]);
+            DBHelper dbComboHelper = new DBHelper(this);
+            dbComboHelper.updateComboStatus(selectedCombo, pressStatus[pressStatusIndex]);
+
             finish();
         }
         pressStatusIndex++;

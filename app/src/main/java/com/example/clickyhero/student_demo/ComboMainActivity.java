@@ -43,16 +43,21 @@ public class ComboMainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager =  new LinearLayoutManager(ComboMainActivity.this);
         rvStudent.setLayoutManager(layoutManager);
 
-        alStudents = new ArrayList<>();
-        alStudents.add(new Combos(0, "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Combos(1, "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Combos(2,"Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Combos(3,"Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
-        alStudents.add(new Combos(4,"Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+
 
         DBHelper dbComboHelper = new DBHelper(this);
-        dbComboHelper.addCombos(alStudents);
-
+//        dbComboHelper.addCombos(alStudents);
+        alStudents = dbComboHelper.getAllCombos();
+        if (alStudents.isEmpty()) {
+            alStudents = new ArrayList<>();
+            alStudents.add(new Combos(0, "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            alStudents.add(new Combos(1, "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            alStudents.add(new Combos(2,"Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            alStudents.add(new Combos(3,"Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            alStudents.add(new Combos(4,"Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            dbComboHelper.addCombos(alStudents);
+            alStudents = dbComboHelper.getAllCombos();
+        }
 
 
         studentAdapter = new ComboAdapter(alStudents, ComboMainActivity.this);
@@ -65,6 +70,8 @@ public class ComboMainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        studentAdapter.notifyDataSetChanged();
 
         SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         int score = prefs.getInt("score", 0);
