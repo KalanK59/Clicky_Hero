@@ -1,5 +1,6 @@
 package com.example.clickyhero.student_demo;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -163,8 +164,6 @@ public class CombinationActivity extends AppCompatActivity {
 
         pressStatusIndex++;
 
-        // Update combo status in database
-
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         int score = sharedPreferences.getInt("score", 0);
@@ -177,15 +176,17 @@ public class CombinationActivity extends AppCompatActivity {
                 // Increment score if all buttons pressed correctly
                 score++;
                 editor.putInt("score", score);
+
             }
 
             editor.apply();
 
             // Finish the activity and return to the previous one
             DBHelper dbComboHelper = new DBHelper(this);
-            dbComboHelper.updateComboStatus(selectedCombo, comboCorrect);
+            dbComboHelper.updateComboStatus(selectedCombo, comboCorrect ? 1 : -1);
 
             // Finish the activity and return to the previous one
+            startActivity(new Intent(this, ComboMainActivity.class));
             finish();
         }
     }

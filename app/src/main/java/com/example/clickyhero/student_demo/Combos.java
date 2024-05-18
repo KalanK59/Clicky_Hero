@@ -8,7 +8,7 @@ public class Combos implements Serializable {
     private String name;
     private int[] combos;
 
-    private boolean correct;
+    private int correct;
 
 
 
@@ -16,7 +16,7 @@ public class Combos implements Serializable {
         this.comboID = comboID;
         this.name = name;
         this.combos = combos;
-        this.correct = true;
+        this.correct = 0;
     }
 
     public Combos() {
@@ -47,11 +47,11 @@ public class Combos implements Serializable {
         this.combos = combos;
     }
 
-    public boolean isCorrect() {
+    public int getCorrect() {
         return correct;
     }
 
-    public void setCorrect(boolean correct) {
+    public void setCorrect(int correct) {
         this.correct = correct;
     }
 

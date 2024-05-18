@@ -47,7 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
             student.setComboID(resultSet.getInt(0));
             student.setName(resultSet.getString(1));
             student.setCombos(stringToIntArray(resultSet.getString(2)));
-            student.setCorrect(resultSet.getInt(3) == 1);
+            student.setCorrect(resultSet.getInt(3));
             alStudents.add(student);
         }
         Log.d("getAllCombos", alStudents.size() + "");
@@ -63,7 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put("name", student.getName());
             values.put("combos", Arrays.toString(student.getCombos()));
-            values.put("correct", student.isCorrect() ? 1 : 0);
+            values.put("correct", student.getCorrect());
             Log.d("addCombos", values.toString());
             db.insert(TABLE_NAME, null, values);
         }
@@ -75,7 +75,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("name", student.getName());
         values.put("combos", Arrays.toString(student.getCombos()));
-        values.put("correct", student.isCorrect() ? 1 : 0);
+        values.put("correct", student.getCorrect());
         db.update(TABLE_NAME, values, "comboID=?", new String[]{String.valueOf(student.getComboID())});
         db.close();
     }
@@ -89,7 +89,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return array;
     }
 
-    public void updateComboStatus(Combos selectedCombo, boolean pressStatus) {
+    public boolean removeCombos() {
+
+        String query = "DELETE FROM tblCombos";
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(query);
+
+        return true;
+    }
+
+    public void updateComboStatus(Combos selectedCombo, int pressStatus) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 //        values.put("name", selectedCombo.getName());

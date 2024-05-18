@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clickyhero.R;
@@ -56,15 +55,22 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
 
         holder.itemView.setBackgroundColor(Color.CYAN);
 
-        if (student.isCorrect()) {
-            holder.itemView.setBackgroundColor(Color.GREEN);
-        } else {
-            holder.itemView.setBackgroundColor(Color.RED);
+        switch (student.getCorrect()) {
+            case 0: holder.itemView.setBackgroundColor(Color.CYAN);
+            break;
+            case 1: holder.itemView.setBackgroundColor(Color.GREEN);
+            break;
+            case -1: holder.itemView.setBackgroundColor(Color.RED);
+            break;
+
         }
 
-        holder.Container.setOnClickListener(v -> {
-            int[] imageResources = student.getCombos();
-            openCombinationsActivity(student, student.getName(), imageResources);
+//        holder.Container.setOnClickListener(v -> {
+//            int[] imageResources = student.getCombos();
+//            openCombinationsActivity(student, student.getName(), imageResources);
+//        });
+        holder.itemView.setOnClickListener(view -> {
+            onStudentClickListener.onStudentClick(position, comboList.get(position));
         });
     }
 
@@ -82,6 +88,13 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
     @Override
     public int getItemCount() {
         return comboList.size();
+    }
+    public interface OnStudentClickListener {
+        void onStudentClick(int position, Combos combo);
+    }
+    private OnStudentClickListener onStudentClickListener;
+    public void setOnStudentClickListener(OnStudentClickListener onStudentClickListener) {
+        this.onStudentClickListener = onStudentClickListener;
     }
 
 

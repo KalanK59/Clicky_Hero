@@ -1,8 +1,10 @@
 package com.example.clickyhero.student_demo;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -62,6 +64,21 @@ public class ComboMainActivity extends AppCompatActivity {
 
 
         studentAdapter = new ComboAdapter(alStudents, ComboMainActivity.this);
+
+        studentAdapter.setOnStudentClickListener((position, student) -> {
+            Log.d("Student", student.toString());
+
+            Intent colorIntent =  new Intent(ComboMainActivity.this, CombinationActivity.class);
+
+            colorIntent.putExtra("student", student);
+            int[] imageResources = student.getCombos();
+            colorIntent.putExtra("imageResource", imageResources);
+            colorIntent.putExtra("name", student.getName());
+            startActivity(colorIntent);
+            finish();
+
+        });
+
         rvStudent.setAdapter(studentAdapter);
 
 
@@ -91,16 +108,36 @@ public class ComboMainActivity extends AppCompatActivity {
     }
 
     private void restartGame() {
+
+        DBHelper dbComboHelper = new DBHelper(this);
+        dbComboHelper.removeCombos();
+
+        alStudents = dbComboHelper.getAllCombos();
+        if (alStudents.isEmpty()) {
+            alStudents = new ArrayList<>();
+            alStudents.add(new Combos(0, "Reinforce", new int[]{R.drawable.up, R.drawable.down, R.drawable.left, R.drawable.right, R.drawable.up, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            alStudents.add(new Combos(1, "Resupply", new int[]{R.drawable.down, R.drawable.down, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            alStudents.add(new Combos(2,"Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            alStudents.add(new Combos(3,"Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            alStudents.add(new Combos(4,"Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            dbComboHelper.addCombos(alStudents);
+            alStudents = dbComboHelper.getAllCombos();
+        }
+
+        studentAdapter = new ComboAdapter(alStudents, ComboMainActivity.this);
+        rvStudent.setAdapter(studentAdapter);
+
+
         // Set score to 0
         getSharedPreferences("MyPrefs", MODE_PRIVATE).edit().putInt("score", 0).apply();
 
         // Update tvScore text
         tvScore.setText("0");
 
-        // Randomize order of combinations
-        Collections.shuffle(alStudents);
+//        // Randomize order of combinations
+//        Collections.shuffle(alStudents);
 
-        // Notify the adapter that the data has changed
-        studentAdapter.notifyDataSetChanged();
+//        // Notify the adapter that the data has changed
+//        studentAdapter.notifyDataSetChanged();
     }
 }
