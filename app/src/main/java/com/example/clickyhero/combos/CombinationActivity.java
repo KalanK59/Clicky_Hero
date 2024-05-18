@@ -1,4 +1,4 @@
-package com.example.clickyhero.student_demo;
+package com.example.clickyhero.combos;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,12 +18,12 @@ import com.example.clickyhero.R;
 import java.util.Arrays;
 
 public class CombinationActivity extends AppCompatActivity {
+    // Declare UI components
     TextView tvUpdate;
     ImageView image1, image2, image3, image4, image5, image6, image7, image8;
     ImageButton btnUp, btnDown, btnLeft, btnRight;
     int[] imageResources;
     boolean[] pressStatus;
-
     ImageView[] comboIcons;
     int pressStatusIndex = 0;
     int countNonTransparentImages = 0;
@@ -33,13 +33,16 @@ public class CombinationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Remove the title and set full-screen mode
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide(); // This is what hides the action bar.
+        getSupportActionBar().hide(); // Hide the action bar
 
+        // Enable edge-to-edge display
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_combination);
 
+        // Initialize UI components
         tvUpdate = findViewById(R.id.tvUpdate);
         image1 = findViewById(R.id.image1);
         image2 = findViewById(R.id.image2);
@@ -57,14 +60,15 @@ public class CombinationActivity extends AppCompatActivity {
 
         comboIcons = new ImageView[8];
 
+        // Get data from the intent
         Bundle extras = getIntent().getExtras();
         selectedCombo = (Combos) extras.getSerializable("student");
-
         String name = extras.getString("name", "");
         tvUpdate.setText(name);
 
         imageResources = extras.getIntArray("imageResource");
         if (imageResources != null && imageResources.length >= 8) {
+            // Set images if they are not transparent
             setImageIfNotTransparent(image1, imageResources[0]);
             setImageIfNotTransparent(image2, imageResources[1]);
             setImageIfNotTransparent(image3, imageResources[2]);
@@ -86,6 +90,7 @@ public class CombinationActivity extends AppCompatActivity {
         }
     }
 
+    // Set image if it is not transparent
     private void setImageIfNotTransparent(ImageView imageView, int resourceId) {
         if (resourceId != R.drawable.transparent) {
             imageView.setImageResource(resourceId);
@@ -96,8 +101,10 @@ public class CombinationActivity extends AppCompatActivity {
         }
     }
 
+    // Handle button press
     private void handlePress(ImageView imageView, int sentBtnId) {
         int correctBtnId = imageResources[pressStatusIndex];
+        //Checks in the logcat for the correct and sent button ids.
         Log.d("DEBUG", "correctBtnId: " + correctBtnId);
         Log.d("DEBUG", "sentBtnId: " + sentBtnId);
 
@@ -112,8 +119,10 @@ public class CombinationActivity extends AppCompatActivity {
             pressStatus[pressStatusIndex] = false; // Mark the press as incorrect
         }
 
+        // Update the press status index
         pressStatusIndex++;
 
+        // Get and update the score in SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         int score = sharedPreferences.getInt("score", 0);
@@ -157,8 +166,7 @@ public class CombinationActivity extends AppCompatActivity {
         }
     }
 
-
-
+    // Check if all values in the array are true
     private boolean areAllTrue(boolean[] array) {
         for (boolean value : array) {
             if (!value) {

@@ -1,4 +1,4 @@
-package com.example.clickyhero.student_demo;
+package com.example.clickyhero.combos;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,97 +19,95 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewHolder> {
+    // List of combos
     private final ArrayList<Combos> comboList;
+    // Context for starting activities
     private final Context context;
 
-
-    private boolean correct = false;
-    private boolean incorrect = false;
-
+    // Constructor
     public ComboAdapter(ArrayList<Combos> alStudents, Context context) {
         this.comboList = alStudents;
         this.context = context;
-        // Shuffle the ArrayList
+        // Shuffle the combo list
         Collections.shuffle(this.comboList);
     }
 
+    // Create new views (invoked by the layout manager)
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the item layout
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_clickyhero, parent, false);
         return new StudentViewHolder(view);
     }
 
+    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
-        Combos student = comboList.get(position);
-        holder.Name.setText(student.getName());
-        holder.imgArrow1.setImageResource(student.getCombos()[0]);
-        holder.imgArrow2.setImageResource(student.getCombos()[1]);
-        holder.imgArrow3.setImageResource(student.getCombos()[2]);
-        holder.imgArrow4.setImageResource(student.getCombos()[3]);
-        holder.imgArrow5.setImageResource(student.getCombos()[4]);
-        holder.imgArrow6.setImageResource(student.getCombos()[5]);
-        holder.imgArrow7.setImageResource(student.getCombos()[6]);
-        holder.imgArrow8.setImageResource(student.getCombos()[7]);
+        // Get element from the dataset at this position
+        Combos combo = comboList.get(position);
 
-        holder.itemView.setBackgroundColor(Color.CYAN);
+        // Replace the contents of the view with that element
+        holder.Name.setText(combo.getName());
+        holder.imgArrow1.setImageResource(combo.getCombos()[0]);
+        holder.imgArrow2.setImageResource(combo.getCombos()[1]);
+        holder.imgArrow3.setImageResource(combo.getCombos()[2]);
+        holder.imgArrow4.setImageResource(combo.getCombos()[3]);
+        holder.imgArrow5.setImageResource(combo.getCombos()[4]);
+        holder.imgArrow6.setImageResource(combo.getCombos()[5]);
+        holder.imgArrow7.setImageResource(combo.getCombos()[6]);
+        holder.imgArrow8.setImageResource(combo.getCombos()[7]);
 
-        switch (student.getCorrect()) {
-            case 0: holder.itemView.setBackgroundColor(Color.CYAN);
-            break;
-            case 1: holder.itemView.setBackgroundColor(Color.GREEN);
-            break;
-            case -1: holder.itemView.setBackgroundColor(Color.RED);
-            break;
-
+        // Set background color based on the combo's correctness status
+        switch (combo.getCorrect()) {
+            // Default color
+            case 0:
+                holder.itemView.setBackgroundColor(Color.CYAN);
+                break;
+            // Correct combo
+            case 1:
+                holder.itemView.setBackgroundColor(Color.GREEN);
+                break;
+            // Incorrect combo
+            case -1:
+                holder.itemView.setBackgroundColor(Color.RED);
+                break;
         }
+
+        // Set onClickListener for the item view
         holder.itemView.setOnClickListener(view -> {
             onStudentClickListener.onStudentClick(position, comboList.get(position));
         });
     }
 
-    private void openCombinationsActivity(Combos student, String name, int[] imageResource) {
-        Intent intent = new Intent(context, CombinationActivity.class);
-        intent.putExtra("imageResource", imageResource);
-        intent.putExtra("name", name);
-        intent.putExtra("student", student);
-        context.startActivity(intent);
-//        context.finish();
-
-    }
-
-
+    // Return the size of the dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return comboList.size();
     }
+
+    // Interface for handling item clicks
     public interface OnStudentClickListener {
         void onStudentClick(int position, Combos combo);
     }
+
     private OnStudentClickListener onStudentClickListener;
+
+    // Setter for the OnStudentClickListener
     public void setOnStudentClickListener(OnStudentClickListener onStudentClickListener) {
         this.onStudentClickListener = onStudentClickListener;
     }
 
-
+    // ViewHolder class for the RecyclerView items
     public static class StudentViewHolder extends RecyclerView.ViewHolder {
         TextView Name;
-
-        ImageView imgArrow1;
-        ImageView imgArrow2;
-        ImageView imgArrow3;
-        ImageView imgArrow4;
-        ImageView imgArrow5;
-        ImageView imgArrow6;
-        ImageView imgArrow7;
-        ImageView imgArrow8;
-
+        ImageView imgArrow1, imgArrow2, imgArrow3, imgArrow4, imgArrow5, imgArrow6, imgArrow7, imgArrow8;
         LinearLayout Container;
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            // Initialize the UI components
             Name = itemView.findViewById(R.id.tvName);
             Container = itemView.findViewById(R.id.Container);
             imgArrow1 = itemView.findViewById(R.id.imgArrow);
@@ -121,7 +119,5 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
             imgArrow7 = itemView.findViewById(R.id.imgArrow6);
             imgArrow8 = itemView.findViewById(R.id.imgArrow7);
         }
-
-
     }
 }
