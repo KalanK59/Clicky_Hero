@@ -20,7 +20,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ComboMainActivity extends AppCompatActivity {
+public class
+ComboMainActivity extends AppCompatActivity {
     RecyclerView rvStudent;
     static ArrayList<Combos> alStudents;
     private ComboAdapter studentAdapter;
@@ -34,7 +35,7 @@ public class ComboMainActivity extends AppCompatActivity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide(); //This is what hides the action bar.
+        getSupportActionBar().hide();
 
         setContentView(R.layout.activity_clickyhero_main);
 
@@ -46,10 +47,7 @@ public class ComboMainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager =  new LinearLayoutManager(ComboMainActivity.this);
         rvStudent.setLayoutManager(layoutManager);
 
-
-
         DBHelper dbComboHelper = new DBHelper(this);
-//        dbComboHelper.addCombos(alStudents);
         alStudents = dbComboHelper.getAllCombos();
         if (alStudents.isEmpty()) {
             alStudents = new ArrayList<>();
@@ -61,7 +59,6 @@ public class ComboMainActivity extends AppCompatActivity {
             dbComboHelper.addCombos(alStudents);
             alStudents = dbComboHelper.getAllCombos();
         }
-
 
         studentAdapter = new ComboAdapter(alStudents, ComboMainActivity.this);
 
@@ -78,10 +75,7 @@ public class ComboMainActivity extends AppCompatActivity {
             finish();
 
         });
-
         rvStudent.setAdapter(studentAdapter);
-
-
         btnRestart.setOnClickListener(v -> restartGame());
 }
     // Changes the tvScore text with the correct value.
@@ -91,24 +85,12 @@ public class ComboMainActivity extends AppCompatActivity {
         studentAdapter.notifyDataSetChanged();
 
         //get the update from the dbHelper show the updated colours for the results
-
-
         SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         int score = prefs.getInt("score", 0);
         tvScore.setText(String.valueOf(score));
-
-
-//        Intent intent = new Intent(StudentActivity2Backup.this,  CongratulationsActivity.class);
-//        intent.putExtra("score", score);
-//        startActivity(intent);
-
-        //rvStudent.setBackgroundColor(Color.GREEN);
-        //rvStudent.setBackgroundColor(Color.RED);
-
     }
 
     private void restartGame() {
-
         DBHelper dbComboHelper = new DBHelper(this);
         dbComboHelper.removeCombos();
 
@@ -123,21 +105,17 @@ public class ComboMainActivity extends AppCompatActivity {
             dbComboHelper.addCombos(alStudents);
             alStudents = dbComboHelper.getAllCombos();
         }
-
         studentAdapter = new ComboAdapter(alStudents, ComboMainActivity.this);
         rvStudent.setAdapter(studentAdapter);
 
-
-        // Set score to 0
-        getSharedPreferences("MyPrefs", MODE_PRIVATE).edit().putInt("score", 0).apply();
+        // Set score and correct combo count to 0
+        SharedPreferences.Editor editor = getSharedPreferences("MyPrefs", MODE_PRIVATE).edit();
+        editor.putInt("score", 0);
+        editor.putInt("correctCombos", 0);
+        editor.apply();
 
         // Update tvScore text
         tvScore.setText("0");
-
-//        // Randomize order of combinations
-//        Collections.shuffle(alStudents);
-
-//        // Notify the adapter that the data has changed
-//        studentAdapter.notifyDataSetChanged();
     }
+
 }

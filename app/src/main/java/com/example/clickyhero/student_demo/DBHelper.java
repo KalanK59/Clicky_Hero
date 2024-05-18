@@ -101,8 +101,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public void updateComboStatus(Combos selectedCombo, int pressStatus) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-//        values.put("name", selectedCombo.getName());
-//        values.put("combos", Arrays.toString(selectedCombo.getCombos()));
         values.put("correct", pressStatus);
         Log.d("updateComboStatus", values.toString());
         db.update(TABLE_NAME, values, "id=?", new String[]{String.valueOf(selectedCombo.getComboID())});

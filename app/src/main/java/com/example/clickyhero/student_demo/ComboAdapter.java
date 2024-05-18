@@ -64,11 +64,6 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
             break;
 
         }
-
-//        holder.Container.setOnClickListener(v -> {
-//            int[] imageResources = student.getCombos();
-//            openCombinationsActivity(student, student.getName(), imageResources);
-//        });
         holder.itemView.setOnClickListener(view -> {
             onStudentClickListener.onStudentClick(position, comboList.get(position));
         });

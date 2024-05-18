@@ -10,8 +10,6 @@ public class Combos implements Serializable {
 
     private int correct;
 
-
-
     public Combos(int comboID, String name, int[] combos) {
         this.comboID = comboID;
         this.name = name;
@@ -54,5 +52,4 @@ public class Combos implements Serializable {
     public void setCorrect(int correct) {
         this.correct = correct;
     }
-
 }
