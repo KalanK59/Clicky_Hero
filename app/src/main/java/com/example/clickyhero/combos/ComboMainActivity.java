@@ -112,6 +112,7 @@ public class ComboMainActivity extends AppCompatActivity {
             alComboList.add(new Combos(2, "Eagle Rearm", new int[]{R.drawable.up, R.drawable.up, R.drawable.left, R.drawable.up, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
             alComboList.add(new Combos(3, "Eagle Airstrike", new int[]{R.drawable.up, R.drawable.right, R.drawable.down, R.drawable.right, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
             alComboList.add(new Combos(4, "Eagle 500kg Bomb", new int[]{R.drawable.up, R.drawable.left, R.drawable.down, R.drawable.down, R.drawable.down, R.drawable.transparent, R.drawable.transparent, R.drawable.transparent}));
+            Collections.shuffle(alComboList);
             dbComboHelper.addCombos(alComboList);
             alComboList = dbComboHelper.getAllCombos();
         }
@@ -120,8 +121,8 @@ public class ComboMainActivity extends AppCompatActivity {
         comboAdapter = new ComboAdapter(alComboList, ComboMainActivity.this);
         rvCombos.setAdapter(comboAdapter);
 
-        Collections.shuffle(alComboList);
-        comboAdapter.notifyItemRangeChanged(0, alComboList.size());
+        //notifies that the data has been changed and notifies the database.
+        comboAdapter.notifyDataSetChanged();
 
 
 
