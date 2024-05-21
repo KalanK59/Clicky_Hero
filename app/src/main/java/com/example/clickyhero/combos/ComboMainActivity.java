@@ -116,11 +116,14 @@ public class ComboMainActivity extends AppCompatActivity {
             alComboList = dbComboHelper.getAllCombos();
         }
 
-        Collections.shuffle(alComboList);
-
         // Set up the adapter for RecyclerView
         comboAdapter = new ComboAdapter(alComboList, ComboMainActivity.this);
         rvCombos.setAdapter(comboAdapter);
+
+        Collections.shuffle(alComboList);
+        comboAdapter.notifyItemRangeChanged(0, alComboList.size());
+
+
 
         // Set item click listener for RecyclerView items
         comboAdapter.setOnStudentClickListener((position, student) -> {

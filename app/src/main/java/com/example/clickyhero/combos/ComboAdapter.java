@@ -30,7 +30,7 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
         this.comboList = comboList;
         this.context = context;
         // Shuffle the combo list
-        Collections.shuffle(this.comboList);
+//        Collections.shuffle(this.comboList);
     }
 
     // Create new views (invoked by the layout manager)
