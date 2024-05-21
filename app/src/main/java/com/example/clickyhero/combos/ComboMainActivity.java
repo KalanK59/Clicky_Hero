@@ -112,6 +112,10 @@ public class ComboMainActivity extends AppCompatActivity {
             alComboList = dbComboHelper.getAllCombos();
         }
 
+        // Set up the adapter for RecyclerView
+        comboAdapter = new ComboAdapter(alComboList, ComboMainActivity.this);
+        rvCombos.setAdapter(comboAdapter);
+
         // Set item click listener for RecyclerView items
         comboAdapter.setOnStudentClickListener((position, student) -> {
             // Start CombinationActivity with selected combo details
@@ -124,9 +128,7 @@ public class ComboMainActivity extends AppCompatActivity {
             finish();
         });
 
-        // Set up the adapter for RecyclerView
-        comboAdapter = new ComboAdapter(alComboList, ComboMainActivity.this);
-        rvCombos.setAdapter(comboAdapter);
+
 
         // Reset score and correct combo count
         SharedPreferences.Editor editor = getSharedPreferences("MyPrefs", MODE_PRIVATE).edit();
