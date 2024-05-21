@@ -29,6 +29,8 @@ public class CombinationActivity extends AppCompatActivity {
     int countNonTransparentImages = 0;
     private Combos selectedCombo;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,6 +127,7 @@ public class CombinationActivity extends AppCompatActivity {
         // Get and update the score in SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        int correctCombos = sharedPreferences.getInt("correctCombos", 0);
         int score = sharedPreferences.getInt("score", 0);
 
         // Check if all buttons have been pressed
@@ -138,27 +141,27 @@ public class CombinationActivity extends AppCompatActivity {
                 editor.apply();
 
                 // Increment the correct combo count
-                int correctCombos = sharedPreferences.getInt("correctCombos", 0);
                 correctCombos++;
                 editor.putInt("correctCombos", correctCombos);
                 editor.apply();
 
                 Log.d("DEBUG", "Correct Combos: " + correctCombos);  // Log correct combo count
 
-                // Start the CongratulationsActivity if 5 combos are correct
-                if (correctCombos >= 5) {
-                    Log.d("DEBUG", "Starting CongratulationsActivity");  // Log starting intent
-                    Intent congratsIntent = new Intent(this, CongratulationsActivity.class);
-                    congratsIntent.putExtra("score", String.valueOf(score));
-                    startActivity(congratsIntent);
-                    finish();  // Close the current activity
-                    return;  // Exit the method
-                }
             }
 
             // Update combo status in the database
             DBHelper dbComboHelper = new DBHelper(this);
             dbComboHelper.updateComboStatus(selectedCombo, comboCorrect ? 1 : -1);
+
+            // Start the CongratulationsActivity if 5 combos are correct
+            if (correctCombos == 5) {
+                Log.d("DEBUG", "Starting CongratulationsActivity");  // Log starting intent
+                Intent congratsIntent = new Intent(this, CongratulationsActivity.class);
+                congratsIntent.putExtra("score", String.valueOf(score));
+                startActivity(congratsIntent);
+                finish();  // Close the current activity
+                return;  // Exit the method
+            }
 
             // Finish the activity and return to the previous one
             startActivity(new Intent(this, ComboMainActivity.class));

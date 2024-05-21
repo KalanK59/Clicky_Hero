@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.clickyhero.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ComboMainActivity extends AppCompatActivity {
     // RecyclerView to display combos
@@ -27,6 +28,9 @@ public class ComboMainActivity extends AppCompatActivity {
     private Button btnRestart;
     // TextView to display the score
     private TextView tvScore;
+
+    // Flag to track if the list has been shuffled
+    private boolean isListShuffled = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +115,8 @@ public class ComboMainActivity extends AppCompatActivity {
             dbComboHelper.addCombos(alComboList);
             alComboList = dbComboHelper.getAllCombos();
         }
+
+        Collections.shuffle(alComboList);
 
         // Set up the adapter for RecyclerView
         comboAdapter = new ComboAdapter(alComboList, ComboMainActivity.this);

@@ -103,4 +103,16 @@ public class DBHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, values, "id=?", new String[]{String.valueOf(selectedCombo.getComboID())});
         db.close();
     }
+
+    // Update the position of a specific combo
+    public void updateCombo(Combos combo) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", combo.getName());
+        values.put("combos", Arrays.toString(combo.getCombos()));
+        values.put("correct", combo.getCorrect());
+        Log.d("updateCombo", values.toString());
+        db.update(TABLE_NAME, values, "id=?", new String[]{String.valueOf(combo.getComboID())});
+        db.close();
+    }
 }

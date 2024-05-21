@@ -24,9 +24,10 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.StudentViewH
     // Context for starting activities
     private final Context context;
 
+
     // Constructor
-    public ComboAdapter(ArrayList<Combos> alStudents, Context context) {
-        this.comboList = alStudents;
+    public ComboAdapter(ArrayList<Combos> comboList, Context context) {
+        this.comboList = comboList;
         this.context = context;
         // Shuffle the combo list
         Collections.shuffle(this.comboList);
